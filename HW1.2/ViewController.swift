@@ -7,36 +7,6 @@
 
 import UIKit
 import SnapKit
-import RxCocoa
-import RxSwift
-
-//extension UIButton {
-//
-//    func startAnimatingPressActions() {
-//        addTarget(self, action: #selector(animateDown), for: [.touchDown, .touchDragEnter])
-//        addTarget(self, action: #selector(animateUp), for: [.touchDragExit, .touchCancel, .touchUpInside, .touchUpOutside])
-//    }
-//
-//    @objc private func animateDown(sender: UIButton) {
-//        animate(sender, transform: CGAffineTransform.identity.scaledBy(x: 0.95, y: 0.95))
-//    }
-//
-//    @objc private func animateUp(sender: UIButton) {
-//        animate(sender, transform: .identity)
-//    }
-//
-//    private func animate(_ button: UIButton, transform: CGAffineTransform) {
-//        UIView.animate(withDuration: 0.4,
-//                       delay: 0,
-//                       usingSpringWithDamping: 0.5,
-//                       initialSpringVelocity: 3,
-//                       options: [.curveEaseInOut],
-//                       animations: {
-//                        button.transform = transform
-//            }, completion: nil)
-//    }
-//
-//}
 
 class ViewController: UIViewController {
     
@@ -57,7 +27,6 @@ class ViewController: UIViewController {
         but.setTitle("Let's start collecting", for: .normal)
         but.setTitleColor(.black, for: .normal)
         but.layer.cornerRadius = 16
-        but.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return but
     }()
 
@@ -72,10 +41,15 @@ class ViewController: UIViewController {
         view.addSubview(label)
         
         view.addSubview(but)
+        but.addTarget(self, action: #selector(handleStartButton), for: .touchUpInside)
     }
     
-    @objc func buttonAction(sender: UIButton!) {
-      print("Button tapped")
+    @objc private func handleStartButton() {
+        let vc = SecondView()
+        Storage.showOnboarding = false
+        vc.modalPresentationStyle = .fullScreen
+        self.navigationController?.present(vc, animated: true, completion: nil)
+       
     }
 
 }
